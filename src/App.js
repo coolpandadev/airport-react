@@ -25,6 +25,7 @@ const App = () => {
           columns={columns}
           rows={data.routes}
           format={formatValue}
+          perPage="25"
         />
       </section>
     </div>
