@@ -1,40 +1,40 @@
 import React, { Component } from 'react';
 import './App.css';
 
-import data, { getAirlineById, getAirportByCode } from './data';
+import data from './data';
 
-const App = () => (
-  <div className="app">
-  <header className="header">
-    <h1 className="title">Airline Routes</h1>
-  </header>
-  <section>
-    <table className="routes-table">
-      <thead>
-        <tr>
-          <th>Airline</th>
-          <th>Source Airport</th>
-          <th>Destination Airport</th>
-        </tr>
-      </thead>
-      {data.routes.map(route => {
-        const id = route.airline;
-        return (
-          <tr key={id}>
-            <td>{getAirlineById(route.airline)}</td>
-            <td>{getAirportByCode(route.src)}</td>
-            <td>{getAirportByCode(route.dest)}</td>
-          </tr>
-        );
-      })}
-    </table>
-  </section>
-</div>
-);
+import Table from './components/Table';
+
+const columns = [
+  {name: 'Airline', property: 'airline'},
+  {name: 'Source Airport', property: 'src'},
+  {name: 'Destination Airport', property: 'dest'},
+];
+
+const App = () => {
+  function formatValue(property, value) { /* return a string */ }
+
+  return (
+    <div className="app">
+      <header className="header">
+        <h1 className="title">Airline Routes</h1>
+      </header>
+      <section>
+        <Table
+          className="routes-table"
+          columns={columns}
+          rows={data.routes}
+          format={formatValue}
+        />
+      </section>
+    </div>
+  );
+}
 
 export default App;
 
 /*
+
 const routes = [
   {"airline":24,"src":"DFW","dest":"XNA"},
   {"airline":24,"src":"DFW","dest":"FWA"},
