@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { getAirlineById, getAirportByCode } from '../data';
 
-const Table = ({ columns, rows, format, perPage }) => {
+const Table = ({ className, columns, rows, format, perPage }) => {
   perPage = Number(perPage);
   const [firstRow, setFirstRow] = useState(0);
 
@@ -30,8 +30,14 @@ const Table = ({ columns, rows, format, perPage }) => {
   const TableFooter = () => (
     <div>
       <p>Showing {firstRow + 1}-{firstRow + perPage} of {rows.length} routes.</p>
-      <button>Previous Page</button>
-      <button onClick={() => setFirstRow(firstRow + perPage)}>
+      <button
+        disabled={firstRow <= 0}
+        onClick={() => setFirstRow(firstRow - perPage)}>
+        Previous Page
+      </button>
+      <button
+        disabled={(firstRow + perPage) >= rows.length}
+        onClick={() => setFirstRow(firstRow + perPage)}>
         Next Page
       </button>
     </div>
@@ -39,7 +45,7 @@ const Table = ({ columns, rows, format, perPage }) => {
 
   return (
     <>
-      <table>
+      <table className={className}>
       <thead>
         <tr>
           {headerRows}
@@ -55,21 +61,3 @@ const Table = ({ columns, rows, format, perPage }) => {
 };
 
 export default Table;
-
-/*
-Step 5: Add Pagination to Table
-Update the Table component so that only 25 rows are shown at a time
-Display a message that says Showing n - n+25 routes of x total routes
-Display Previous Page and Next Page buttons
-Adjust the page shown when the buttons are clicked
-Disable the paging controls to prevent a user from going outside valid bounds
-Allow the number of rows per page to be specified as a perPage prop
-
-we could create a data store that encapsules the current range of rows to be shown
-
-or we could use useState to specify... in such a simple project useState is probably the way to go
-
-useState could specify the index number of the first row to be displayed
-
-the state need only be a concern of Table's, not App's
-*/
