@@ -1395,4 +1395,12 @@ const airports = [
 
 ];
 
+export function getAirlineById(id) {
+  return airlines.find(airline => airline.id === id).name;
+}
+
+export function getAirportByCode(code) {
+  return airports.find(airport => airport.code === code).name;
+}
+
 export default {routes, airlines, airports};
