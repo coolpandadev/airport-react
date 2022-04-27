@@ -28,7 +28,7 @@ const Table = ({ className, columns, rows, format, perPage }) => {
   });
 
   const TableFooter = () => (
-    <div>
+    <>
       <p>Showing {firstRow + 1}-{firstRow + perPage} of {rows.length} routes.</p>
       <button
         disabled={firstRow <= 0}
@@ -40,7 +40,7 @@ const Table = ({ className, columns, rows, format, perPage }) => {
         onClick={() => setFirstRow(firstRow + perPage)}>
         Next Page
       </button>
-    </div>
+    </>
   );
 
   return (
