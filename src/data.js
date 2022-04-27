@@ -1407,6 +1407,10 @@ export function getAirlineIdByName(name) {
   return airlines.find(airline => airline.name === name).id;
 }
 
+export function getAirportCodeByName(name) {
+  return airports.find(airport => airport.name === name).code;
+}
+
 export default {routes, airlines, airports};
 
 /*
