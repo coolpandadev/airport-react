@@ -43,6 +43,13 @@ const App = () => {
     }
   }
 
+  const handleFilterClear = (event) => {
+    event.target.parentElement.reset();
+
+    setAirlineId("all");
+    setAirportCode("all");
+  }
+
   const airlineFilter = airlineId === "all"
     ? [...DATA.routes]
     : DATA.routes.filter(route => route.airline === airlineId);
@@ -60,23 +67,32 @@ const App = () => {
       </header>
       <section>
         Show routes on
-        <Select 
-          options={DATA.airlines}
-          valueKey="id"
-          titleKey="name"
-          allTitle="All Airlines"
-          allValue="all"
-          onSelect={handleAirlineSelection}
-        />
-        flying in or out of
-        <Select
-          options={DATA.airports}
-          valueKey="code"
-          titleKey="name"
-          allTitle="All Airports"
-          allValue="all"
-          onSelect={handleAirportSelection}
-        />
+        <form>
+          <Select 
+            options={DATA.airlines}
+            valueKey="id"
+            titleKey="name"
+            allTitle="All Airlines"
+            allValue="all"
+            onSelect={handleAirlineSelection}
+          />
+          flying in or out of
+          <Select
+            options={DATA.airports}
+            valueKey="code"
+            titleKey="name"
+            allTitle="All Airports"
+            allValue="all"
+            onSelect={handleAirportSelection}
+          />
+          <button
+            type="reset"
+            onClick={handleFilterClear}
+            disabled={airlineId === "all" && airportCode === "all"}
+          >
+            Show All Routes
+          </button>
+        </form>
         <Table
           className="routes-table"
           columns={columns}
