@@ -5,12 +5,13 @@ const Select = ({ options, valueKey, titleKey, allTitle, allValue, onSelect }) =
     <>
     <select onChange={onSelect}>
         <option value={allValue}>{allTitle}</option>
-      {options.map(airline => (
+      {options.map(option => (
         <option
-          key={airline[valueKey]}
-          value={airline[titleKey]}
+          key={option[valueKey]}
+          value={option[titleKey]}
+          disabled={option.disabled}
         >
-          {airline[titleKey]}
+          {option[titleKey]}
         </option>
       ))}
     </select>
