@@ -4,6 +4,7 @@ import './App.css';
 import DATA, { getAirlineIdByName } from './data';
 
 import Table from './components/Table';
+import Select from './components/Select';
 
 const columns = [
   {name: 'Airline', property: 'airline'},
@@ -11,8 +12,13 @@ const columns = [
   {name: 'Destination Airport', property: 'dest'},
 ];
 
-const Select = ({ airlines, setAirlineId }) => {
-  const handleFilter = (event) => {
+
+
+const App = () => {
+  const [airlineId, setAirlineId] = useState("all");
+  function formatValue(property, value) { /* return a string */ }
+
+  const handleSelect = (event) => {
     const airlineName = event.target.value;
 
     if (airlineName === "all") {
@@ -22,28 +28,6 @@ const Select = ({ airlines, setAirlineId }) => {
       setAirlineId(airlineId);
     }
   };
-
-  return (
-    <>
-    Show routes on
-    <select onChange={handleFilter}>
-        <option value="all">All Airlines</option>
-      {airlines.map(airline => (
-        <option
-          key={airline.id}
-          value={airline.name}
-        >
-          {airline.name}
-        </option>
-      ))}
-    </select>
-    </>
-  )
-};
-
-const App = () => {
-  const [airlineId, setAirlineId] = useState("all");
-  function formatValue(property, value) { /* return a string */ }
 
   const airlineFilter = airlineId === "all"
     ? [...DATA.routes]
@@ -56,8 +40,12 @@ const App = () => {
       </header>
       <section>
         <Select 
-          airlines={DATA.airlines}
-          setAirlineId={setAirlineId} />
+          options={DATA.airlines}
+          valueKey="id"
+          titleKey="name"
+          allTitle="All Airlines"
+          allValue="all"
+          onSelect={handleSelect} />
         <Table
           className="routes-table"
           columns={columns}
